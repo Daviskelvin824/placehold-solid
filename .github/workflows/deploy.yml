@@ -22,7 +22,7 @@ jobs:
         script: |
           export NVM_DIR=~/.nvm
           source ~/.nvm/nvm.sh
-          nvm use lts/iron
+          nvm use lts/jod
           cd ${{ github.event.repository.name }}/fe
           git stash
           git pull origin main
