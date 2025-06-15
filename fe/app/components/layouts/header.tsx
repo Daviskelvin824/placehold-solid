@@ -3,8 +3,20 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { cn } from "~/lib/utils";
 import { LogoStaticAnimated } from "../logo-static";
 import { Link } from "react-router";
+import { Button } from "../ui/button";
+import { Plus } from "lucide-react";
+import { useAccount, useReadContract } from "wagmi";
+import { ABI } from "~/constant/ABI";
+import { CONTRACT_ADDRESS } from "~/constant/CA";
 
 export function Header({ className }: JSX.IntrinsicElements["div"]) {
+  const { address } = useAccount();
+  const { data: dataAddressOwner, isLoading } = useReadContract({
+    abi: ABI,
+    address: CONTRACT_ADDRESS,
+    functionName: "owner",
+  });
+
   return (
     <div
       className={cn(
@@ -16,7 +28,12 @@ export function Header({ className }: JSX.IntrinsicElements["div"]) {
         <a href="/" className="h-full w-full">
           <LogoStaticAnimated className="h-full" />
         </a>
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0 flex flex-row items-center gap-4">
+          {address === dataAddressOwner && (
+            <Link to="/add" prefetch="intent">
+              {!isLoading && <Button size="lg">Add</Button>}
+            </Link>
+          )}
           <ConnectButton />
         </div>
       </div>

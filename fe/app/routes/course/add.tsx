@@ -1,7 +1,5 @@
-"use client";
-
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../components/ui/button";
 import {
   Card,
@@ -14,25 +12,47 @@ import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { toast } from "sonner";
 import { BookOpen, Plus } from "lucide-react";
+import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import { ABI } from "~/constant/ABI";
+import { CONTRACT_ADDRESS } from "~/constant/CA";
+import { generateRandomHexColor } from "~/lib/utils";
+import { Textarea } from "~/components/ui/textarea";
 
 interface Course {
-  id: string;
   title: string;
+  price: number;
   description: string;
-  credits: number;
-  image: string;
 }
 
 export default function AddCoursePage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<Course>({
-    id: "",
     title: "",
+    price: 0,
     description: "",
-    credits: 3,
-    image: "",
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  /* -------------------------------------------------------------------------- */
+  /*                            contract interaction                            */
+  /* -------------------------------------------------------------------------- */
+  const {
+    data: hashAddCourse,
+    isPending: isPendingAdd,
+    writeContract: doAddCourse,
+    error: errorAdd,
+  } = useWriteContract();
+
+  const {
+    error: errorReceipt,
+    isLoading: isLoadingReceipt,
+    isSuccess: isSuccessWaitingReceipt,
+  } = useWaitForTransactionReceipt({
+    hash: hashAddCourse,
+  });
+
+  /* -------------------------------------------------------------------------- */
+  /*                               UI Interaction                               */
+  /* -------------------------------------------------------------------------- */
 
   const handleInputChange = (field: keyof Course, value: string | number) => {
     setFormData((prev) => ({
@@ -41,51 +61,49 @@ export default function AddCoursePage() {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setIsSubmitting(true);
 
     // Basic validation
-    if (!formData.id || !formData.title || !formData.description) {
+    if (!formData.title || formData.price == 0) {
       toast.warning("Please fill in all required fields.");
-      setIsSubmitting(false);
       return;
     }
 
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+    console.log("no return");
+    doAddCourse({
+      abi: ABI,
+      address: CONTRACT_ADDRESS,
+      functionName: "addCourse",
+      args: [formData.title, formData.description, generateImage(formData.title), formData.price],
+    });
+  }
 
+  function generateImage(title: string) {
+    return `https://placehold.co/640x360/${generateRandomHexColor()}/${generateRandomHexColor()}/png?text=${title}`;
+  }
+
+  useEffect(() => {
+    setIsSubmitting(isPendingAdd || isLoadingReceipt);
+  }, [isPendingAdd, isLoadingReceipt]);
+
+  useEffect(() => {
+    if (isSuccessWaitingReceipt) {
       toast.success(`Course “${formData.title}” added!`, {
         description: "Students can now enroll.",
       });
 
-      // Reset form
       setFormData({
-        id: "",
         title: "",
+        price: 0,
         description: "",
-        credits: 3,
-        image: "",
       });
-    } catch (error) {
-      toast.error("Failed to add course", {
-        description: "Please try again.",
-      });
-    } finally {
-      setIsSubmitting(false);
     }
-  };
+  }, [isSuccessWaitingReceipt]);
 
-  const handleClearForm = () => {
-    setFormData({
-      id: "",
-      title: "",
-      description: "",
-      credits: 3,
-      image: "",
-    });
-  };
+  useEffect(() => {
+    console.log(errorReceipt, errorAdd);
+  }, [errorReceipt, errorAdd]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br p-4">
@@ -122,55 +140,35 @@ export default function AddCoursePage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="title">Price *</Label>
-                <Input
-                  id="price"
-                  placeholder="e.g., Introduction to Computer Science"
-                  value={formData.title}
-                  onChange={(e) => handleInputChange("title", e.target.value)}
+                <Label htmlFor="description">Description *</Label>
+                <Textarea
+                  id="description"
+                  placeholder="Provide a detailed description of the course content and objectives..."
+                  value={formData.description}
+                  onChange={(e) => handleInputChange("description", e.target.value)}
+                  rows={4}
                   required
                 />
               </div>
 
-              <div className="flex gap-4 pt-4">
-                <Button type="submit" disabled={isSubmitting} className="flex-1 cursor-pointer">
-                  {isSubmitting ? "Adding Course..." : "Add Course"}
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={handleClearForm}
-                  className="flex-1 cursor-pointer"
-                >
-                  Clear Form
-                </Button>
+              <div className="space-y-2">
+                <Label htmlFor="title">Price *</Label>
+                <Input
+                  id="price"
+                  placeholder="$9,999.9 PHD"
+                  type="number"
+                  value={formData.price}
+                  onChange={(e) => handleInputChange("price", e.target.value)}
+                  required
+                />
               </div>
+
+              <Button type="submit" disabled={isSubmitting} className="flex-1 cursor-pointer w-max">
+                {isSubmitting ? "Adding Course..." : "Add Course"}
+              </Button>
             </form>
           </CardContent>
         </Card>
-
-        {import.meta.env.DEV && (
-          <div className="mt-8 p-4 bg-white rounded-lg shadow">
-            <h3 className="font-semibold text-gray-900 mb-2">Preview</h3>
-            <div className="text-sm text-gray-600 space-y-1">
-              <p>
-                <strong>ID:</strong> {formData.id || "Not specified"}
-              </p>
-              <p>
-                <strong>Title:</strong> {formData.title || "Not specified"}
-              </p>
-              <p>
-                <strong>Credits:</strong> {formData.credits}
-              </p>
-              <p>
-                <strong>Description:</strong> {formData.description || "Not specified"}
-              </p>
-              <p>
-                <strong>Image:</strong> {formData.image || "No image selected"}
-              </p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

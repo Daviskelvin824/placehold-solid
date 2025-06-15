@@ -68,6 +68,7 @@ export const ABI = [
   {
     inputs: [
       { internalType: "string", name: "title", type: "string" },
+      { internalType: "string", name: "description", type: "string" },
       { internalType: "string", name: "uri", type: "string" },
       { internalType: "uint256", name: "stakeAmount", type: "uint256" },
     ],
@@ -89,6 +90,7 @@ export const ABI = [
     outputs: [
       { internalType: "uint256", name: "id", type: "uint256" },
       { internalType: "string", name: "title", type: "string" },
+      { internalType: "string", name: "description", type: "string" },
       { internalType: "string", name: "uri", type: "string" },
       { internalType: "uint256", name: "stakeAmount", type: "uint256" },
       { internalType: "bool", name: "active", type: "bool" },
@@ -125,6 +127,7 @@ export const ABI = [
         components: [
           { internalType: "uint256", name: "id", type: "uint256" },
           { internalType: "string", name: "title", type: "string" },
+          { internalType: "string", name: "description", type: "string" },
           { internalType: "string", name: "uri", type: "string" },
           { internalType: "uint256", name: "stakeAmount", type: "uint256" },
           { internalType: "bool", name: "active", type: "bool" },
@@ -145,6 +148,7 @@ export const ABI = [
         components: [
           { internalType: "uint256", name: "id", type: "uint256" },
           { internalType: "string", name: "title", type: "string" },
+          { internalType: "string", name: "description", type: "string" },
           { internalType: "string", name: "uri", type: "string" },
           { internalType: "uint256", name: "stakeAmount", type: "uint256" },
           { internalType: "bool", name: "active", type: "bool" },
