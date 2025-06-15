@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { cn } from "@/lib/utils";
+import { cn } from "~/lib/utils";
 
 export function Header({ className }: JSX.IntrinsicElements["div"]) {
   return (
