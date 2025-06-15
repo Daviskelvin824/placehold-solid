@@ -1,0 +1,62 @@
+[
+  {
+    "id": "cs101",
+    "title": "Intro to Computer Science",
+    "description": "Learn the fundamentals of computer science.",
+    "credits": 3
+  },
+  {
+    "id": "math201",
+    "title": "Calculus I",
+    "description": "Differential and integral calculus of one variable.",
+    "credits": 4
+  },
+  {
+    "id": "cs102",
+    "title": "Programming Fundamentals",
+    "description": "Introduction to programming using Python.",
+    "credits": 3
+  },
+  {
+    "id": "cs201",
+    "title": "Data Structures",
+    "description": "Explore common data structures like arrays, linked lists, and trees.",
+    "credits": 3
+  },
+  {
+    "id": "cs202",
+    "title": "Algorithms",
+    "description": "Learn algorithm design and analysis techniques.",
+    "credits": 3
+  },
+  {
+    "id": "math202",
+    "title": "Linear Algebra",
+    "description": "Matrices, vectors, and linear transformations.",
+    "credits": 3
+  },
+  {
+    "id": "math203",
+    "title": "Discrete Mathematics",
+    "description": "Logic, set theory, combinatorics, and graph theory.",
+    "credits": 3
+  },
+  {
+    "id": "cs301",
+    "title": "Operating Systems",
+    "description": "Concepts in modern operating systems like memory, processes, and file systems.",
+    "credits": 4
+  },
+  {
+    "id": "cs302",
+    "title": "Computer Networks",
+    "description": "Foundations of data communication and networking protocols.",
+    "credits": 3
+  },
+  {
+    "id": "cs303",
+    "title": "Databases",
+    "description": "Relational databases, SQL, and database design.",
+    "credits": 3
+  }
+]
