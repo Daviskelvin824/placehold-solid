@@ -227,7 +227,20 @@ export default function Home() {
                 <motion.div key={course.id} variants={itemVariants}>
                   <BentoGridItem
                     title={course.title}
-                    description={course.description}
+                    description={
+                      <>
+                        <div>{course.description}</div>
+                        <div className="flex justify-between items-center mt-4">
+                          <div className="flex items-center gap-2 text-sm text-gray-400">
+                            <Users className="w-4 h-4" />
+                            {course.students?.toLocaleString()} students
+                          </div>
+                          <div className="text-lg font-bold text-purple-400">
+                            {course.price}
+                          </div>
+                        </div>
+                      </>
+                    }
                     header={
                       <div className="relative group overflow-hidden rounded-lg">
                         <img
@@ -251,17 +264,6 @@ export default function Home() {
                     className={`${
                       i === 3 || i === 6 ? "md:col-span-2" : ""
                     } cursor-pointer group hover:scale-[1.02] transition-all duration-300 bg-white/5 border-white/10 hover:bg-white/10 hover:border-purple-500/30`}
-                    footer={
-                      <div className="flex justify-between items-center mt-4">
-                        <div className="flex items-center gap-2 text-sm text-gray-400">
-                          <Users className="w-4 h-4" />
-                          {course.students?.toLocaleString()} students
-                        </div>
-                        <div className="text-lg font-bold text-purple-400">
-                          {course.price}
-                        </div>
-                      </div>
-                    }
                   />
                 </motion.div>
               ))}
