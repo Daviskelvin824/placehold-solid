@@ -20,7 +20,7 @@ export default function NotFoundPage() {
       // Infinite float + boom (scale) animation
       gsap.to(headingRef.current, {
         y: -10,
-        scale: 5.1,
+        scale: 1.1,
         repeat: -1,
         yoyo: true,
         duration: 1.5,

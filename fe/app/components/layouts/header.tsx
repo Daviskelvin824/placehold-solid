@@ -2,6 +2,7 @@ import type { JSX } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { cn } from "~/lib/utils";
 import { LogoStaticAnimated } from "../logo-static";
+import { Link } from "react-router";
 
 export function Header({ className }: JSX.IntrinsicElements["div"]) {
   return (
@@ -12,7 +13,9 @@ export function Header({ className }: JSX.IntrinsicElements["div"]) {
       )}
     >
       <div className="container flex flex-nowrap items-center justify-between w-full gap-4 overflow-x-auto max-h-[7vh]">
-        <LogoStaticAnimated className="h-full" />
+        <a href="/" className="h-full w-full">
+          <LogoStaticAnimated className="h-full" />
+        </a>
         <div className="flex-shrink-0">
           <ConnectButton />
         </div>
