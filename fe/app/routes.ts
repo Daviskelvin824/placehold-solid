@@ -4,7 +4,6 @@ export default [
   layout("./routes/_layout.tsx", [
     // course list
     index("routes/landing/index.tsx"),
-    route("/course", "routes/course/index.tsx"),
     // course detail
     route("/:slug", "routes/course/details.tsx"),
   ]),
