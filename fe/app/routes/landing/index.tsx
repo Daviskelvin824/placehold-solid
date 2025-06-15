@@ -9,11 +9,28 @@ import { Card, CardContent } from "~/components/ui/card";
 import { Skeleton } from "~/components/ui/skeleton";
 import { ABI } from "~/constant/ABI";
 import { CONTRACT_ADDRESS } from "~/constant/CA";
+import type { Route } from "./+types";
 
-export function meta() {
+export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Placehold. dApps" },
+    { name: "description", content: "Web3 Learning Platform" },
+    { name: "keywords", content: "web3" },
+    { name: "image", content: "https://blockdev.reiyan.space/logo.png" },
+    { name: "og:url", content: "https://blockdev.reiyan.space/logo.png" },
+    { name: "og:title", content: "Placehold. dApps" },
+    { name: "og:description", content: "Web3 Learning Platform" },
+    { name: "og:image", content: "https://blockdev.reiyan.space/logo.png" },
+    {
+      name: "twitter:card",
+      content: "summary_large_image",
+    },
+    // { name: "twitter:creator", content: "@happycuans" },
+    // { name: "twitter:site", content: "@happycuans" },
+    { name: "twitter:title", content: "Placehold. dApps" },
+    { name: "twitter:description", content: "Web3 Learning Platform" },
+    { name: "twitter:image", content: "https://blockdev.reiyan.space/logo.png" },
+    { name: "twitter:image:alt", content: "Placehold. dApps" },
   ];
 }
 

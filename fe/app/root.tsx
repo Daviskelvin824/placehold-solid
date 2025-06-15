@@ -32,29 +32,6 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Placehold. dApps" },
-    { name: "description", content: "Web3 Learning Platform" },
-    { name: "keywords", content: "web3" },
-    { name: "image", content: "https://blockdev.reiyan.space/logo.png" },
-    { name: "og:url", content: "https://blockdev.reiyan.space/logo.png" },
-    { name: "og:title", content: "Placehold. dApps" },
-    { name: "og:description", content: "Web3 Learning Platform" },
-    { name: "og:image", content: "https://blockdev.reiyan.space/logo.png" },
-    {
-      name: "twitter:card",
-      content: "summary_large_image",
-    },
-    // { name: "twitter:creator", content: "@happycuans" },
-    // { name: "twitter:site", content: "@happycuans" },
-    { name: "twitter:title", content: "Placehold. dApps" },
-    { name: "twitter:description", content: "Web3 Learning Platform" },
-    { name: "twitter:image", content: "https://blockdev.reiyan.space/logo.png" },
-    { name: "twitter:image:alt", content: "Placehold. dApps" },
-  ];
-}
-
 export function Layout({ children }: { children: React.ReactNode }) {
   // if (typeof document !== "undefined") {
   //   console.log("masuk");
