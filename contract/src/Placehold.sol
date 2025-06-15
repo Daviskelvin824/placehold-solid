@@ -32,6 +32,7 @@ contract Placehold is Ownable {
     uint256 public nextCourseId;
     mapping(uint256 => Course) public courses;
     mapping(uint256 => mapping(address => Enrollment)) public enrollments;
+    mapping(uint256 => address[]) public studentsByCourse;
 
     /* ---------------------------------- event --------------------------------- */
     event CourseAdded(
@@ -120,6 +121,7 @@ contract Placehold is Ownable {
         );
 
         e.enrolled = true;
+        studentsByCourse[courseId].push(msg.sender);
 
         emit Enrolled(msg.sender, courseId, course.stakeAmount);
     }
@@ -159,6 +161,12 @@ contract Placehold is Ownable {
     /* -------------------------------------------------------------------------- */
     /*                                 view helper                                */
     /* -------------------------------------------------------------------------- */
+
+    function getStudents(
+        uint256 courseId
+    ) external view returns (address[] memory) {
+        return studentsByCourse[courseId];
+    }
 
     // Optional: Check enrollment status
     function isEnrolled(
