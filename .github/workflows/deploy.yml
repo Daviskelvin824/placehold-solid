@@ -1,0 +1,34 @@
+name: Frontend Apps Deploy
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - "fe/**"
+
+jobs:
+  deploy:
+    name: 🚀 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚀 Deploy compose
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        port: 22
+        script: |
+          export NVM_DIR=~/.nvm
+          source ~/.nvm/nvm.sh
+          nvm use lts/iron
+          cd ${{ github.event.repository.name }}/fe
+          git stash
+          git pull origin main
+          npm i -g pm2 corepack
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm i
+          pm2 del "blockdev-apps"
+          pm2 start "npm run dev" --name "blockdev-apps"
