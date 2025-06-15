@@ -8,11 +8,12 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import "./assets/styles/app.css";
 import { WagmiProvider } from "wagmi";
 import { WAGMI_CONFIG } from "./services/wagmi/config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import "./assets/styles/app.css";
+import "@rainbow-me/rainbowkit/styles.css";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
