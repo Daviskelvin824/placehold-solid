@@ -12,6 +12,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { Landing } from "./pages/landing";
 import { DefaultLayout } from "./components/layouts/DefaultLayout";
 import AnotherPage from "./pages/another-pages";
+import { Courses } from "./pages/courses";
 
 /* -------------------------------------------------------------------------- */
 /*                                   Config                                   */
@@ -37,6 +38,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Landing />} />
                 <Route path="/hawo" element={<AnotherPage />} />
+                <Route path="/courses" element={<Courses />} />
                 {/* <Route path="/candidates" element={<Candidates />} /> */}
               </Routes>
             </DefaultLayout>
