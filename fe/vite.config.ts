@@ -9,4 +9,7 @@ export default defineConfig({
   ssr: {
     noExternal: ["gsap", "@gsap/react"],
   },
+  server: {
+    allowedHosts: ["blockdev.reiyan.space"],
+  },
 });
