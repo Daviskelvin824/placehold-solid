@@ -14,5 +14,6 @@ export default [
       route("/:id", "routes/profile/profile-public.tsx"),
     ]),
   ]),
+  route("/404", "routes/404/index.tsx"),
   //
 ] satisfies RouteConfig;

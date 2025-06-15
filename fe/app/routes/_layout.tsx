@@ -7,7 +7,7 @@ export default function DefaultLayout() {
   return (
     <>
       <Header />
-      <main className="h-screen py-[10vh] px-4 sm:px-6 md:px-10 flex flex-col gap-10 items-center">
+      <main className="h-screen py-[13vh] px-4 sm:px-6 md:px-10 flex flex-col gap-10 items-center">
         <div className="container pb-32">
           <Outlet />
         </div>

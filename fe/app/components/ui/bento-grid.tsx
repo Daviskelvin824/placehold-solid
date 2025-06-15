@@ -13,7 +13,7 @@ export const BentoGrid = ({
   <div
     className={cn(
       /* equal‑height rows (18 rem) on ≥ md screens */
-      "mx-auto grid max-w-7xl grid-cols-1 gap-4 md:auto-rows-[18rem] md:grid-cols-3",
+      "mx-auto grid grid-cols-1 gap-6 md:auto-rows-[18rem] md:grid-cols-3",
       className
     )}
   >
@@ -41,10 +41,10 @@ export const BentoGridItem = ({
   <div
     className={cn(
       // full‑height flex column → lets the content grow and the button stay put
-      "group/bento row-span-1 flex h-full flex-col rounded-xl border border-neutral-200 bg-white p-4 shadow-input transition duration-200 hover:shadow-xl dark:border-white/[0.2] dark:bg-black dark:shadow-none",
+      "group/bento row-span-1 flex h-full flex-col rounded-xl border border-neutral-200 bg-white p-4 shadow-input transition duration-200 hover:shadow-lg dark:border-white/[0.2] dark:bg-black dark:shadow-none",
       className
     )}
-    onClick={() => window.open('/'+id, '_blank')}
+    onClick={() => window.open("/" + id, "_blank")}
   >
     {/* ── top section (header / image) ─────────────────────────────── */}
     {header}
@@ -59,6 +59,11 @@ export const BentoGridItem = ({
     </div>
 
     {/* ── bottom‑anchored button ───────────────────────────────────── */}
-    <Button className="mt-4 self-end cursor-pointer" onClick={() => window.open('/'+id, '_blank')}>Enroll Course</Button>
+    <Button
+      className="mt-4 self-end cursor-pointer"
+      onClick={() => window.open("/" + id, "_blank")}
+    >
+      Enroll Course
+    </Button>
   </div>
 );

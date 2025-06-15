@@ -11,8 +11,8 @@ export function Header({ className }: JSX.IntrinsicElements["div"]) {
         className
       )}
     >
-      <div className="container flex flex-nowrap items-center justify-between w-full gap-4 overflow-x-auto">
-        <LogoStaticAnimated />
+      <div className="container flex flex-nowrap items-center justify-between w-full gap-4 overflow-x-auto max-h-[7vh]">
+        <LogoStaticAnimated className="h-full" />
         <div className="flex-shrink-0">
           <ConnectButton />
         </div>

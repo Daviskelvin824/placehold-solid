@@ -10,6 +10,10 @@ export async function loader({ params }: Route.LoaderArgs) {
       return v.id == params.id;
     });
 
+    if (!detail) {
+      return redirect("/404");
+    }
+
     return {
       detail,
     };

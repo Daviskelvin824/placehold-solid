@@ -50,21 +50,21 @@ export default function AddCoursePage() {
     }));
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        setImagePreview(result);
-        setFormData((prev) => ({
-          ...prev,
-          image: `/images/${file.name}`,
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = (e) => {
+  //       const result = e.target?.result as string;
+  //       setImagePreview(result);
+  //       setFormData((prev) => ({
+  //         ...prev,
+  //         image: `/images/${file.name}`,
+  //       }));
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -124,9 +124,7 @@ export default function AddCoursePage() {
             <BookOpen className="h-12 w-12 text-blue-600" />
           </div>
           <h1 className="text-3xl font-bold text-white mb-2">Add New Course</h1>
-          <p className="text-gray-300">
-            Create a new course for your curriculum
-          </p>
+          <p className="text-gray-300">Create a new course for your curriculum</p>
         </div>
 
         <Card className="shadow-lg">
@@ -141,7 +139,7 @@ export default function AddCoursePage() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="courseId">Course ID *</Label>
                   <Input
@@ -157,9 +155,7 @@ export default function AddCoursePage() {
                   <Label htmlFor="credits">Credits</Label>
                   <Select
                     value={formData.credits.toString()}
-                    onValueChange={(value) =>
-                      handleInputChange("credits", Number.parseInt(value))
-                    }
+                    onValueChange={(value) => handleInputChange("credits", Number.parseInt(value))}
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -174,7 +170,7 @@ export default function AddCoursePage() {
                     </SelectContent>
                   </Select>
                 </div>
-              </div>
+              </div> */}
 
               <div className="space-y-2">
                 <Label htmlFor="title">Course Title *</Label>
@@ -188,20 +184,29 @@ export default function AddCoursePage() {
               </div>
 
               <div className="space-y-2">
+                <Label htmlFor="title">Price *</Label>
+                <Input
+                  id="price"
+                  placeholder="e.g., Introduction to Computer Science"
+                  value={formData.title}
+                  onChange={(e) => handleInputChange("title", e.target.value)}
+                  required
+                />
+              </div>
+
+              {/* <div className="space-y-2">
                 <Label htmlFor="description">Course Description *</Label>
                 <Textarea
                   id="description"
                   placeholder="Provide a detailed description of the course content and objectives..."
                   value={formData.description}
-                  onChange={(e) =>
-                    handleInputChange("description", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("description", e.target.value)}
                   rows={4}
                   required
                 />
-              </div>
+              </div> */}
 
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <Label htmlFor="image">Course Image</Label>
                 <div className="flex items-center gap-4">
                   <div className="flex-1">
@@ -224,14 +229,10 @@ export default function AddCoursePage() {
                     />
                   </div>
                 )}
-              </div>
+              </div> */}
 
               <div className="flex gap-4 pt-4">
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="flex-1 cursor-pointer"
-                >
+                <Button type="submit" disabled={isSubmitting} className="flex-1 cursor-pointer">
                   {isSubmitting ? "Adding Course..." : "Add Course"}
                 </Button>
                 <Button
@@ -260,8 +261,7 @@ export default function AddCoursePage() {
               <strong>Credits:</strong> {formData.credits}
             </p>
             <p>
-              <strong>Description:</strong>{" "}
-              {formData.description || "Not specified"}
+              <strong>Description:</strong> {formData.description || "Not specified"}
             </p>
             <p>
               <strong>Image:</strong> {formData.image || "No image selected"}
