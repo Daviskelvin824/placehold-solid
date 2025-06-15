@@ -25,7 +25,7 @@ export function Header({ className }: JSX.IntrinsicElements["div"]) {
         className
       )}
     >
-      <div className="container flex flex-nowrap items-center justify-between w-full gap-4 overflow-x-auto max-h-[7vh]">
+      <div className="container flex flex-nowrap items-center justify-between w-full gap-4  max-h-[7vh]">
         <a href="/" className="h-full w-full">
           <LogoStaticAnimated className="h-full" />
         </a>
