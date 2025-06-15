@@ -14,6 +14,7 @@ type Course = {
   header?: React.ReactNode;
   icon?: React.ReactNode;
   image: string;
+  id: string;
 };
 
 export default function Home() {
@@ -42,6 +43,7 @@ export default function Home() {
           }
           icon={item.icon}
           className={i === 3 || i === 6 ? "md:col-span-2 cursor-pointer" : " cursor-pointer"}
+          id={item.id}
         />
       ))}
     </BentoGrid>

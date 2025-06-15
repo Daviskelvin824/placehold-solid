@@ -29,12 +29,14 @@ export const BentoGridItem = ({
   description,
   header,
   icon,
+  id,
 }: {
   className?: string;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
   header?: React.ReactNode;
   icon?: React.ReactNode;
+  id?: string;
 }) => (
   <div
     className={cn(
@@ -42,6 +44,7 @@ export const BentoGridItem = ({
       "group/bento row-span-1 flex h-full flex-col rounded-xl border border-neutral-200 bg-white p-4 shadow-input transition duration-200 hover:shadow-xl dark:border-white/[0.2] dark:bg-black dark:shadow-none",
       className
     )}
+    onClick={() => window.open('/'+id, '_blank')}
   >
     {/* ── top section (header / image) ─────────────────────────────── */}
     {header}
@@ -56,6 +59,6 @@ export const BentoGridItem = ({
     </div>
 
     {/* ── bottom‑anchored button ───────────────────────────────────── */}
-    <Button className="mt-4 self-end cursor-pointer">Enroll Course</Button>
+    <Button className="mt-4 self-end cursor-pointer" onClick={() => window.open('/'+id, '_blank')}>Enroll Course</Button>
   </div>
 );

@@ -32,7 +32,7 @@ export default function Details() {
       </div>
       {/* <div className="flex flex-col gap-8"> */}
       <img
-        src="https://placehold.co/120"
+        src={detail.image}
         alt=""
         className="aspect-[16/9] object-cover w-full rounded-lg"
       />
