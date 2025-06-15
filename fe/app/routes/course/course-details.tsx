@@ -1,7 +1,7 @@
 import { Button } from "~/components/ui/button";
 // import type { Route } from "./+types/details";
 import { redirect, useLoaderData } from "react-router";
-import Courses from "../../public/data/courses.json";
+import Courses from "../../../public/data/courses.json";
 import type { Route } from "./+types/course-details";
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -32,11 +32,7 @@ export default function Details() {
         </div>
       </div>
       {/* <div className="flex flex-col gap-8"> */}
-      <img
-        src={detail.image}
-        alt=""
-        className="aspect-[16/9] object-cover w-full rounded-lg"
-      />
+      <img src={detail.image} alt="" className="aspect-[16/9] object-cover w-full rounded-lg" />
       {/* </div> */}
       <div className="flex flex-col gap-8 text-justify text-xl tracking-wide">
         {detail.description} Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique
