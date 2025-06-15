@@ -19,6 +19,7 @@ contract Placehold is Ownable {
     struct Course {
         uint256 id;
         string title;
+        string description;
         string uri; // Optional: syllabus/metadata URL
         uint256 stakeAmount;
         bool active;
@@ -66,13 +67,21 @@ contract Placehold is Ownable {
     /* -------------------------------------------------------------------------- */
     function addCourse(
         string calldata title,
+        string calldata description,
         string calldata uri,
         uint256 stakeAmount
     ) external onlyOwner {
         require(stakeAmount > 0, "Stake amount must be > 0");
 
         uint256 courseId = ++nextCourseId;
-        courses[courseId] = Course(courseId, title, uri, stakeAmount, true);
+        courses[courseId] = Course(
+            courseId,
+            title,
+            description,
+            uri,
+            stakeAmount,
+            true
+        );
 
         emit CourseAdded(courseId, title, stakeAmount);
     }
