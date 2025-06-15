@@ -31,9 +31,14 @@ export function Header({ className }: JSX.IntrinsicElements["div"]) {
         </a>
         <div className="flex-shrink-0 flex flex-row items-center gap-4">
           {address === dataAddressOwner && (
-            <Link to="/add" prefetch="intent">
-              {!isLoading && <Button size="lg">Add</Button>}
-            </Link>
+            <>
+              <Link to="/review-completed" prefetch="intent">
+                {!isLoading && <Button size="lg">Review Completed</Button>}
+              </Link>
+              <Link to="/add" prefetch="intent">
+                {!isLoading && <Button size="lg">Add</Button>}
+              </Link>
+            </>
           )}
           <ConnectButton />
         </div>

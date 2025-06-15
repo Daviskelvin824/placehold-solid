@@ -162,6 +162,13 @@ export const ABI = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "uint256", name: "courseId", type: "uint256" }],
+    name: "getStudents",
+    outputs: [{ internalType: "address[]", name: "", type: "address[]" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       { internalType: "address", name: "student", type: "address" },
       { internalType: "uint256", name: "courseId", type: "uint256" },
@@ -220,6 +227,16 @@ export const ABI = [
     type: "function",
   },
   {
+    inputs: [
+      { internalType: "uint256", name: "", type: "uint256" },
+      { internalType: "uint256", name: "", type: "uint256" },
+    ],
+    name: "studentsByCourse",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
     name: "transferOwnership",
     outputs: [],
@@ -230,6 +247,18 @@ export const ABI = [
     inputs: [{ internalType: "uint256", name: "courseId", type: "uint256" }],
     name: "withdrawStake",
     outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    constant: false,
+    inputs: [
+      { name: "spender", type: "address" },
+      { name: "value", type: "uint256" },
+    ],
+    name: "approve",
+    outputs: [{ name: "", type: "bool" }],
+    payable: false,
     stateMutability: "nonpayable",
     type: "function",
   },

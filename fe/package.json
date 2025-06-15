@@ -23,6 +23,7 @@
     "@tailwindcss/oxide-win32-x64-msvc": "^4.1.10",
     "@tailwindcss/vite": "^4.1.10",
     "@tanstack/react-query": "^5.80.7",
+    "bn.js": "^5.2.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.18.1",
@@ -44,6 +45,7 @@
   "devDependencies": {
     "@react-router/dev": "^7.6.2",
     "@tailwindcss/vite": "^4.1.4",
+    "@types/bn.js": "^5.2.0",
     "@types/node": "^20",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",

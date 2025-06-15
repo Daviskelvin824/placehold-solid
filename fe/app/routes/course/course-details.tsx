@@ -2,11 +2,12 @@ import { Button } from "~/components/ui/button";
 import { redirect, useLoaderData } from "react-router";
 import type { Route } from "./+types/course-details";
 import { ABI } from "~/constant/ABI";
-import { CONTRACT_ADDRESS } from "~/constant/CA";
+import { CONTRACT_ADDRESS, CONTRACT_PHD_TOKEN } from "~/constant/CA";
 import { createPublicClient, http } from "viem";
 import { monadTestnet } from "viem/chains";
-import { useFeeData, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { useEffect, useState } from "react";
+import BN from "bn.js";
 
 export async function loader({ params }: Route.LoaderArgs) {
   if (isNaN(Number(params.id))) {
@@ -41,6 +42,9 @@ export default function Details() {
 
   const [loading, setLoading] = useState(false);
 
+  /* -------------------------------------------------------------------------- */
+  /*                                   Enroll                                   */
+  /* -------------------------------------------------------------------------- */
   const {
     data: dataHashEnroll,
     error: errorEnroll,
@@ -56,6 +60,44 @@ export default function Details() {
     hash: dataHashEnroll,
   });
 
+  /* -------------------------------------------------------------------------- */
+  /*                                   approve                                  */
+  /* -------------------------------------------------------------------------- */
+  const {
+    data: approveHash,
+    writeContract: writeApprove,
+    isPending: isApproving,
+    error: errorApprove,
+  } = useWriteContract();
+
+  function handleApprove() {
+    // const
+    const amountInWei = new BN(detail.stakeAmount).mul(new BN(10).pow(new BN(18)));
+
+    writeApprove({
+      abi: ABI,
+      address: CONTRACT_PHD_TOKEN,
+      functionName: "approve",
+      args: [CONTRACT_ADDRESS, amountInWei],
+    });
+  }
+
+  const { data: approveReceipt, isLoading: isWaitingForApproval } = useWaitForTransactionReceipt({
+    hash: approveHash,
+  });
+
+  useEffect(() => {
+    console.log("approveReceipt", approveReceipt);
+    if (approveReceipt?.status === "success") {
+      doEnroll({
+        abi: ABI,
+        address: CONTRACT_ADDRESS,
+        functionName: "enrollInCourse",
+        args: [detail.id],
+      });
+    }
+  }, [approveReceipt]);
+
   useEffect(() => {
     setLoading(isPendingEnroll || isLoadingReceiptEnroll);
   }, [isPendingEnroll, isLoadingReceiptEnroll]);
@@ -63,6 +105,10 @@ export default function Details() {
   useEffect(() => {
     console.log(errorEnroll, errorWaitingReceipt);
   }, [errorEnroll, errorWaitingReceipt]);
+
+  useEffect(() => {
+    console.log("on render");
+  }, []);
 
   return (
     <div className="flex flex-col gap-12 w-full">
@@ -82,18 +128,7 @@ export default function Details() {
         totam. Ipsam neque molestiae, nisi at iste ipsa commodi!
       </div>
 
-      <Button
-        className="w-max"
-        size="lg"
-        onClick={() => {
-          // doEnroll({
-          //   abi: ABI,
-          //   address: CONTRACT_ADDRESS,
-          //   functionName:"",
-          //   args: []
-          // })
-        }}
-      >
+      <Button className="w-max" size="lg" onClick={handleApprove}>
         Enroll
       </Button>
     </div>

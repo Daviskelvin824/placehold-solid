@@ -1,6 +1,6 @@
 import { cn } from "~/lib/utils";
 import { Button } from "./button";
-import { useNavigate } from "react-router";
+import { useNavigate, type NavigateFunction } from "react-router";
 
 /* ──────────────────────────────── GRID ─────────────────────────────── */
 
@@ -31,6 +31,8 @@ export function BentoGridItem({
   header,
   icon,
   id,
+  to,
+  textBtn,
 }: {
   className?: string;
   title?: string | React.ReactNode;
@@ -38,6 +40,8 @@ export function BentoGridItem({
   header?: React.ReactNode;
   icon?: React.ReactNode;
   id?: string;
+  to?: string;
+  textBtn?: string;
 }) {
   const navigate = useNavigate();
 
@@ -48,7 +52,7 @@ export function BentoGridItem({
         "group/bento flex flex-col h-full rounded-xl border border-neutral-200 p-4 shadow-input transition duration-200 hover:shadow-lg dark:border-white/[0.2] dark:bg-black dark:shadow-none",
         className
       )}
-      onClick={() => navigate("/" + id)}
+      onClick={() => navigate(to ?? "/" + id)}
     >
       {/* ── top section (header / image) ─────────────────────────────── */}
       {header}
@@ -65,8 +69,8 @@ export function BentoGridItem({
       </div>
 
       {/* ── bottom‑anchored button ───────────────────────────────────── */}
-      <Button className="mt-4 self-end cursor-pointer" onClick={() => navigate("/" + id)}>
-        Enroll Course
+      <Button className="mt-4 self-end cursor-pointer" onClick={() => navigate(to ?? "/" + id)}>
+        {textBtn ?? "Enroll Course"}
       </Button>
     </div>
   );

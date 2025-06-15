@@ -180,7 +180,7 @@ export default function Home() {
       </section>
 
       <section className="px-4 py-16">
-        <div className="max-w-7xl mx-auto">
+        <div className=" mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -199,7 +199,7 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <BentoGrid className="max-w-7xl mx-auto">
+            <BentoGrid className=" mx-auto">
               {isLoadingGetAllCourse &&
                 new Array(3).fill("").map((val, idx) => (
                   <div key={idx} className="flex flex-col space-y-5">
@@ -258,6 +258,94 @@ export default function Home() {
       </section>
 
       {!isLoadingGetAllCourse && (dataAllCourse as Array<{}>).length == 0 && <EmptyState />}
+
+      {/* Testimonials */}
+      <section className="px-4 py-16">
+        <div className="mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              What Our Students Say
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "Alex Chen",
+                role: "DeFi Developer",
+                content:
+                  "This platform transformed my career. Now I'm building DeFi protocols for a major exchange.",
+                rating: 5,
+              },
+              {
+                name: "Sarah Johnson",
+                role: "Smart Contract Auditor",
+                content:
+                  "The security course was incredible. I landed my dream job as a smart contract auditor.",
+                rating: 5,
+              },
+              {
+                name: "Mike Rodriguez",
+                role: "Blockchain Consultant",
+                content:
+                  "Comprehensive courses with real-world projects. Best investment I've made in my education.",
+                rating: 5,
+              },
+            ].map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.2 }}
+              >
+                <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-all duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                      ))}
+                    </div>
+                    <p className="text-gray-300 mb-4">"{testimonial.content}"</p>
+                    <div>
+                      <div className="font-semibold text-white">{testimonial.name}</div>
+                      <div className="text-sm text-gray-400">{testimonial.role}</div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="px-4 py-20">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto text-center"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+            Ready to Build the Future?
+          </h2>
+          <p className="text-xl text-gray-300 mb-8">
+            Join thousands of developers already building on Web3
+          </p>
+          <Button
+            size="lg"
+            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-12 py-4 text-lg"
+          >
+            Start Your Journey
+            <ChevronRight className="w-5 h-5 ml-2" />
+          </Button>
+        </motion.div>
+      </section>
     </>
   );
 }
