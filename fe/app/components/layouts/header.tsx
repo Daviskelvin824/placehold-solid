@@ -11,6 +11,7 @@ import { CONTRACT_ADDRESS } from "~/constant/CA";
 
 export function Header({ className }: JSX.IntrinsicElements["div"]) {
   const { address } = useAccount();
+
   const { data: dataAddressOwner, isLoading } = useReadContract({
     abi: ABI,
     address: CONTRACT_ADDRESS,

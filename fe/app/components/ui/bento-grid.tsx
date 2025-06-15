@@ -59,7 +59,9 @@ export function BentoGridItem({
         <h3 className="mt-1 font-sans text-lg font-bold text-neutral-700 dark:text-neutral-200">
           {title}
         </h3>
-        <p className="font-sans text-sm text-neutral-600 dark:text-neutral-300">{description}</p>
+        <div className="font-sans text-sm text-neutral-600 dark:text-neutral-300">
+          {description}
+        </div>
       </div>
 
       {/* ── bottom‑anchored button ───────────────────────────────────── */}
