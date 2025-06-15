@@ -1,0 +1,232 @@
+export const ABI = [
+  {
+    inputs: [
+      { internalType: "address", name: "_platformToken", type: "address" },
+      { internalType: "address", name: "_certificateNFT", type: "address" },
+    ],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    inputs: [{ internalType: "address", name: "owner", type: "address" }],
+    name: "OwnableInvalidOwner",
+    type: "error",
+  },
+  {
+    inputs: [{ internalType: "address", name: "account", type: "address" }],
+    name: "OwnableUnauthorizedAccount",
+    type: "error",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "address", name: "student", type: "address" },
+      { indexed: true, internalType: "uint256", name: "courseId", type: "uint256" },
+    ],
+    name: "Completed",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "uint256", name: "courseId", type: "uint256" },
+      { indexed: false, internalType: "string", name: "title", type: "string" },
+      { indexed: false, internalType: "uint256", name: "stakeAmount", type: "uint256" },
+    ],
+    name: "CourseAdded",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "address", name: "student", type: "address" },
+      { indexed: true, internalType: "uint256", name: "courseId", type: "uint256" },
+      { indexed: false, internalType: "uint256", name: "amountStaked", type: "uint256" },
+    ],
+    name: "Enrolled",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "address", name: "previousOwner", type: "address" },
+      { indexed: true, internalType: "address", name: "newOwner", type: "address" },
+    ],
+    name: "OwnershipTransferred",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "address", name: "student", type: "address" },
+      { indexed: true, internalType: "uint256", name: "courseId", type: "uint256" },
+      { indexed: false, internalType: "uint256", name: "amountReturned", type: "uint256" },
+    ],
+    name: "StakeWithdrawn",
+    type: "event",
+  },
+  {
+    inputs: [
+      { internalType: "string", name: "title", type: "string" },
+      { internalType: "string", name: "uri", type: "string" },
+      { internalType: "uint256", name: "stakeAmount", type: "uint256" },
+    ],
+    name: "addCourse",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "certificateNFT",
+    outputs: [{ internalType: "contract ICourseCertificate", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    name: "courses",
+    outputs: [
+      { internalType: "uint256", name: "id", type: "uint256" },
+      { internalType: "string", name: "title", type: "string" },
+      { internalType: "string", name: "uri", type: "string" },
+      { internalType: "uint256", name: "stakeAmount", type: "uint256" },
+      { internalType: "bool", name: "active", type: "bool" },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "courseId", type: "uint256" }],
+    name: "enrollInCourse",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "", type: "uint256" },
+      { internalType: "address", name: "", type: "address" },
+    ],
+    name: "enrollments",
+    outputs: [
+      { internalType: "bool", name: "enrolled", type: "bool" },
+      { internalType: "bool", name: "completed", type: "bool" },
+      { internalType: "bool", name: "stakeWithdrawn", type: "bool" },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getAllCourses",
+    outputs: [
+      {
+        components: [
+          { internalType: "uint256", name: "id", type: "uint256" },
+          { internalType: "string", name: "title", type: "string" },
+          { internalType: "string", name: "uri", type: "string" },
+          { internalType: "uint256", name: "stakeAmount", type: "uint256" },
+          { internalType: "bool", name: "active", type: "bool" },
+        ],
+        internalType: "struct Placehold.Course[]",
+        name: "",
+        type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "courseId", type: "uint256" }],
+    name: "getCourse",
+    outputs: [
+      {
+        components: [
+          { internalType: "uint256", name: "id", type: "uint256" },
+          { internalType: "string", name: "title", type: "string" },
+          { internalType: "string", name: "uri", type: "string" },
+          { internalType: "uint256", name: "stakeAmount", type: "uint256" },
+          { internalType: "bool", name: "active", type: "bool" },
+        ],
+        internalType: "struct Placehold.Course",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "student", type: "address" },
+      { internalType: "uint256", name: "courseId", type: "uint256" },
+    ],
+    name: "isCompleted",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "student", type: "address" },
+      { internalType: "uint256", name: "courseId", type: "uint256" },
+    ],
+    name: "isEnrolled",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "courseId", type: "uint256" },
+      { internalType: "address", name: "student", type: "address" },
+    ],
+    name: "markCompleted",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "nextCourseId",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "owner",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "platformToken",
+    outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "renounceOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
+    name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "courseId", type: "uint256" }],
+    name: "withdrawStake",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+];

@@ -9,25 +9,50 @@ interface ICourseCertificate {
 }
 
 contract Placehold is Ownable {
+    /* --------------------------------- struct --------------------------------- */
     struct Enrollment {
         bool enrolled;
         bool completed;
         bool stakeWithdrawn;
     }
 
+    struct Course {
+        uint256 id;
+        string title;
+        string uri; // Optional: syllabus/metadata URL
+        uint256 stakeAmount;
+        bool active;
+    }
+
+    /* ---------------------------------- vars ---------------------------------- */
     IERC20 public immutable platformToken;
     ICourseCertificate public certificateNFT;
 
-    uint256 public enrollmentStakeAmount = 1_000 * 1e18;
-
-    // courseId => student address => enrollment info
+    uint256 public nextCourseId;
+    mapping(uint256 => Course) public courses;
     mapping(uint256 => mapping(address => Enrollment)) public enrollments;
-    mapping(address => uint256) public stakedBalances;
 
-    event Enrolled(address indexed student, uint256 indexed courseId);
+    /* ---------------------------------- event --------------------------------- */
+    event CourseAdded(
+        uint256 indexed courseId,
+        string title,
+        uint256 stakeAmount
+    );
+    event Enrolled(
+        address indexed student,
+        uint256 indexed courseId,
+        uint256 amountStaked
+    );
     event Completed(address indexed student, uint256 indexed courseId);
-    event StakeWithdrawn(address indexed student, uint256 indexed courseId);
+    event StakeWithdrawn(
+        address indexed student,
+        uint256 indexed courseId,
+        uint256 amountReturned
+    );
 
+    /* -------------------------------------------------------------------------- */
+    /*                                 constructor                                */
+    /* -------------------------------------------------------------------------- */
     constructor(
         address _platformToken,
         address _certificateNFT
@@ -36,11 +61,42 @@ contract Placehold is Ownable {
         certificateNFT = ICourseCertificate(_certificateNFT);
     }
 
-    function setStakeAmount(uint256 amount) external onlyOwner {
-        enrollmentStakeAmount = amount;
+    /* -------------------------------------------------------------------------- */
+    /*                              course management                             */
+    /* -------------------------------------------------------------------------- */
+    function addCourse(
+        string calldata title,
+        string calldata uri,
+        uint256 stakeAmount
+    ) external onlyOwner {
+        require(stakeAmount > 0, "Stake amount must be > 0");
+
+        uint256 courseId = ++nextCourseId;
+        courses[courseId] = Course(courseId, title, uri, stakeAmount, true);
+
+        emit CourseAdded(courseId, title, stakeAmount);
     }
 
+    function getCourse(uint256 courseId) external view returns (Course memory) {
+        return courses[courseId];
+    }
+
+    function getAllCourses() external view returns (Course[] memory) {
+        uint256 total = nextCourseId;
+        Course[] memory result = new Course[](total);
+        for (uint256 i = 1; i <= total; i++) {
+            result[i - 1] = courses[i];
+        }
+        return result;
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /*                              enrollment logic                              */
+    /* -------------------------------------------------------------------------- */
     function enrollInCourse(uint256 courseId) external {
+        Course storage course = courses[courseId];
+        require(courses[courseId].active, "Invalid course");
+
         Enrollment storage e = enrollments[courseId][msg.sender];
         require(!e.enrolled, "Already enrolled");
 
@@ -49,15 +105,14 @@ contract Placehold is Ownable {
             platformToken.transferFrom(
                 msg.sender,
                 address(this),
-                enrollmentStakeAmount
+                course.stakeAmount
             ),
             "Token transfer failed"
         );
 
         e.enrolled = true;
-        stakedBalances[msg.sender] += enrollmentStakeAmount;
 
-        emit Enrolled(msg.sender, courseId);
+        emit Enrolled(msg.sender, courseId, course.stakeAmount);
     }
 
     function markCompleted(
@@ -77,20 +132,24 @@ contract Placehold is Ownable {
     }
 
     function withdrawStake(uint256 courseId) external {
+        Course storage course = courses[courseId];
         Enrollment storage e = enrollments[courseId][msg.sender];
         require(e.completed, "Course not completed");
         require(!e.stakeWithdrawn, "Already withdrawn");
 
         e.stakeWithdrawn = true;
-        stakedBalances[msg.sender] -= enrollmentStakeAmount;
 
         require(
-            platformToken.transfer(msg.sender, enrollmentStakeAmount),
+            platformToken.transfer(msg.sender, course.stakeAmount),
             "Token return failed"
         );
 
-        emit StakeWithdrawn(msg.sender, courseId);
+        emit StakeWithdrawn(msg.sender, courseId, course.stakeAmount);
     }
+
+    /* -------------------------------------------------------------------------- */
+    /*                                 view helper                                */
+    /* -------------------------------------------------------------------------- */
 
     // Optional: Check enrollment status
     function isEnrolled(
