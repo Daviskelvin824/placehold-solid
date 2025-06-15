@@ -1,9 +1,16 @@
-import { type RouteConfig, index, layout, prefix, route } from "@react-router/dev/routes";
+import {
+  type RouteConfig,
+  index,
+  layout,
+  prefix,
+  route,
+} from "@react-router/dev/routes";
 
 export default [
   layout("./routes/_layout.tsx", [
     // course list
     index("routes/landing/index.tsx"),
+    route("/kedua", "routes/landing/kedua.tsx"),
     // course detail
     route("/:id", "routes/course/course-details.tsx"),
     // add course
