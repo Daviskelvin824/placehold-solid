@@ -1,5 +1,6 @@
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+// import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { useEffect, useState } from "react";
+import { BentoGrid, BentoGridItem } from "~/components/ui/bento-grid";
 
 type Course = {
   title: string;
