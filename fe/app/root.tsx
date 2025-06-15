@@ -6,6 +6,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 import type { Route } from "./+types/root";
 import { WagmiProvider } from "wagmi";
@@ -14,6 +16,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import "./assets/styles/app.css";
 import "@rainbow-me/rainbowkit/styles.css";
+import { useEffect } from "react";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -29,6 +32,18 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  // if (typeof document !== "undefined") {
+  //   console.log("masuk");
+  //   gsap.registerPlugin(useGSAP);
+  // }
+
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      console.log("masuk");
+      gsap.registerPlugin(useGSAP);
+    }
+  }, []);
+
   return (
     <html lang="en" className="dark">
       <head>

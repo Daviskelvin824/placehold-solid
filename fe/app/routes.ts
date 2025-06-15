@@ -5,7 +5,12 @@ export default [
     // course list
     index("routes/landing/index.tsx"),
     // course detail
-    route("/:id", "routes/course/details.tsx"),
+    route("/:id", "routes/course-details.tsx"),
+
+    ...prefix("/users", [
+      //
+      route("/:id", "routes/profile-public.tsx"),
+    ]),
   ]),
   //
 ] satisfies RouteConfig;

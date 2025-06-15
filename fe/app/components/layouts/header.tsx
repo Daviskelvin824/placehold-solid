@@ -1,6 +1,7 @@
 import type { JSX } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { cn } from "~/lib/utils";
+import { LogoStaticAnimated } from "../logo-static";
 
 export function Header({ className }: JSX.IntrinsicElements["div"]) {
   return (
@@ -11,8 +12,7 @@ export function Header({ className }: JSX.IntrinsicElements["div"]) {
       )}
     >
       <div className="container flex flex-nowrap items-center justify-between w-full gap-4 overflow-x-auto">
-        {/* <LogoStaticAnimated className="h-8 w-auto flex-shrink-0" /> */}
-        <p className="text-3xl">Placehold.</p>
+        <LogoStaticAnimated />
         <div className="flex-shrink-0">
           <ConnectButton />
         </div>

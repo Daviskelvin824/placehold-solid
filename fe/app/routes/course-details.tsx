@@ -1,7 +1,8 @@
 import { Button } from "~/components/ui/button";
-import type { Route } from "./+types/details";
+// import type { Route } from "./+types/details";
 import { redirect, useLoaderData } from "react-router";
-import Courses from "../../../public/data/courses.json";
+import Courses from "../../public/data/courses.json";
+import type { Route } from "./+types/course-details";
 
 export async function loader({ params }: Route.LoaderArgs) {
   if (params && params.id) {
